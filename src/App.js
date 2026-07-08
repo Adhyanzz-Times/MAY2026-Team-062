@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './router/ProtectedRoute';
 
 // Layouts
 import PublicLayout from './layouts/PublicLayout';
@@ -54,32 +55,32 @@ export default function App() {
 
           {/* Authenticated Views (Member + Admin Layout) */}
           <Route element={<AppLayout />}>
-            {/* Dynamic Dashboard Landing */}
-            <Route path="/dashboard" element={<Dashboard />} />
+            {/* Dynamic Dashboard Landing - any logged-in role */}
+            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
 
             {/* Member Screens */}
-            <Route path="/book-court" element={<BookCourt />} />
-            <Route path="/my-bookings" element={<MyBookings />} />
-            <Route path="/membership" element={<Membership />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/complaints" element={<Complaints />} />
-            <Route path="/notifications" element={<Notifications />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/assistant" element={<AIAssistant />} />
+            <Route path="/book-court" element={<ProtectedRoute allowedRoles={['member']}><BookCourt /></ProtectedRoute>} />
+            <Route path="/my-bookings" element={<ProtectedRoute allowedRoles={['member']}><MyBookings /></ProtectedRoute>} />
+            <Route path="/membership" element={<ProtectedRoute allowedRoles={['member']}><Membership /></ProtectedRoute>} />
+            <Route path="/events" element={<ProtectedRoute allowedRoles={['member']}><Events /></ProtectedRoute>} />
+            <Route path="/complaints" element={<ProtectedRoute allowedRoles={['member']}><Complaints /></ProtectedRoute>} />
+            <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path="/assistant" element={<ProtectedRoute allowedRoles={['member']}><AIAssistant /></ProtectedRoute>} />
 
             {/* Coach Screens */}
-            <Route path="/coach/schedule" element={<CoachSchedule />} />
-            <Route path="/coach/attendance" element={<CoachAttendance />} />
+            <Route path="/coach/schedule" element={<ProtectedRoute allowedRoles={['coach']}><CoachSchedule /></ProtectedRoute>} />
+            <Route path="/coach/attendance" element={<ProtectedRoute allowedRoles={['coach']}><CoachAttendance /></ProtectedRoute>} />
 
             {/* Maintenance Screens */}
-            <Route path="/maintenance/complaints" element={<MaintenanceComplaints />} />
+            <Route path="/maintenance/complaints" element={<ProtectedRoute allowedRoles={['maintenance']}><MaintenanceComplaints /></ProtectedRoute>} />
 
             {/* Admin Screens */}
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/admin/bookings" element={<AdminBookings />} />
-            <Route path="/admin/members" element={<AdminMembers />} />
-            <Route path="/admin/complaints" element={<AdminComplaints />} />
-            <Route path="/admin/reports" element={<AdminReports />} />
+            <Route path="/admin" element={<ProtectedRoute allowedRoles={['admin']}><AdminDashboard /></ProtectedRoute>} />
+            <Route path="/admin/bookings" element={<ProtectedRoute allowedRoles={['admin']}><AdminBookings /></ProtectedRoute>} />
+            <Route path="/admin/members" element={<ProtectedRoute allowedRoles={['admin']}><AdminMembers /></ProtectedRoute>} />
+            <Route path="/admin/complaints" element={<ProtectedRoute allowedRoles={['admin']}><AdminComplaints /></ProtectedRoute>} />
+            <Route path="/admin/reports" element={<ProtectedRoute allowedRoles={['admin']}><AdminReports /></ProtectedRoute>} />
           </Route>
 
           {/* Catch-all fallback redirect */}

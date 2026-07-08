@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { NotificationService } from '../services/notification';
+import { useAuth } from '../contexts/AuthContext';
 import PageHeader from '../components/PageHeader';
 import NotificationCard from '../components/NotificationCard';
 import { Check } from 'lucide-react';
 
 export default function Notifications() {
+  const { user } = useAuth();
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const loadNotifications = async () => {
     setLoading(true);
     try {
-      const data = await NotificationService.getNotifications();
+      const data = await NotificationService.getNotifications(user?.role);
       setNotifications(data);
     } catch (err) {
       console.error(err);
@@ -22,11 +24,12 @@ export default function Notifications() {
 
   useEffect(() => {
     loadNotifications();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user?.role]);
 
   const handleMarkAllRead = async () => {
     try {
-      const updated = await NotificationService.markAllAsRead();
+      const updated = await NotificationService.markAllAsRead(user?.role);
       setNotifications(updated);
     } catch (err) {
       console.error(err);
@@ -39,7 +42,7 @@ export default function Notifications() {
     <div className="space-y-6">
       <PageHeader 
         title="Notifications" 
-        description="Stay up to date with court booking updates, schedule changes, and tournament alerts."
+        description="Stay up to date with the latest updates relevant to you."
       >
         {unreadCount > 0 && (
           <button

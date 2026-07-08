@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import PageHeader from '../components/PageHeader';
-import { CheckCircle2, Edit2, Save, X, User } from 'lucide-react';
+import { CheckCircle2, Edit2, Save, X, User, Briefcase } from 'lucide-react';
 
 export default function Profile() {
   const { user, setUser } = useAuth();
-  
+  const isMember = user?.role === 'member';
+
   const [isEditing, setIsEditing] = useState(false);
   const [name, setName] = useState(user?.name || '');
   const [phone, setPhone] = useState(user?.phone || '');
@@ -29,7 +30,7 @@ export default function Profile() {
       ...user,
       name,
       phone,
-      preferredSports
+      ...(isMember ? { preferredSports } : {})
     };
 
     localStorage.setItem('user', JSON.stringify(updatedUser));
@@ -94,7 +95,7 @@ export default function Profile() {
                 </div>
                 <div>
                   <h5 className="font-bold text-gray-800 text-lg leading-tight">{user?.name}</h5>
-                  <p className="text-xs text-gray-400 mt-1">Member ID: {user?.id || 'M001'}</p>
+                  <p className="text-xs text-gray-400 mt-1 capitalize">{user?.role} • ID: {user?.id}</p>
                 </div>
               </div>
 
@@ -129,40 +130,79 @@ export default function Profile() {
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-gray-450 uppercase mb-2">Membership Status</label>
-                  <input
-                    type="text"
-                    disabled
-                    value={`${user?.membershipType} (Active until ${user?.expiryDate})`}
-                    className="px-4 py-2.5 w-full bg-gray-50 border border-gray-200 rounded-xl text-gray-500 cursor-not-allowed"
-                  />
+                  {isMember ? (
+                    <>
+                      <label className="block font-semibold text-gray-450 uppercase mb-2">Membership Status</label>
+                      <input
+                        type="text"
+                        disabled
+                        value={`${user?.membershipType || 'Standard'} (Active until ${user?.expiryDate})`}
+                        className="px-4 py-2.5 w-full bg-gray-50 border border-gray-200 rounded-xl text-gray-500 cursor-not-allowed"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <label className="block font-semibold text-gray-450 uppercase mb-2">Department</label>
+                      <input
+                        type="text"
+                        disabled
+                        value={`${user?.department || '—'} (Joined ${user?.joinDate || '—'})`}
+                        className="px-4 py-2.5 w-full bg-gray-50 border border-gray-200 rounded-xl text-gray-500 cursor-not-allowed"
+                      />
+                    </>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Preferences / Sports Preferred list */}
-        <div className="premium-card p-6">
-          <h4 className="font-bold text-gray-800 text-sm pb-3 border-b border-gray-200 mb-4">Preferred Sports</h4>
-          
-          <div className="space-y-2">
-            {sportsList.map((sport) => {
-              const isPreferred = preferredSports.includes(sport);
-              return (
-                <button
-                  key={sport}
-                  disabled={!isEditing}
-                  onClick={() => handleSportToggle(sport)}
-                  className={`w-full text-left p-3 rounded-xl border text-xs font-semibold flex items-center justify-between ${isPreferred ? 'border-primary bg-primary-soft text-primary' : 'border-gray-200 text-gray-650 hover:bg-gray-50'} ${!isEditing ? 'cursor-default opacity-85' : 'cursor-pointer hover:border-gray-300'}`}
-                >
-                  <span>{sport}</span>
-                  {isPreferred && <span className="h-2 w-2 rounded-full bg-primary" />}
-                </button>
-              );
-            })}
+        {/* Right column: Preferred Sports for members, Work Info for staff roles */}
+        {isMember ? (
+          <div className="premium-card p-6">
+            <h4 className="font-bold text-gray-800 text-sm pb-3 border-b border-gray-200 mb-4">Preferred Sports</h4>
+
+            <div className="space-y-2">
+              {sportsList.map((sport) => {
+                const isPreferred = preferredSports.includes(sport);
+                return (
+                  <button
+                    key={sport}
+                    disabled={!isEditing}
+                    onClick={() => handleSportToggle(sport)}
+                    className={`w-full text-left p-3 rounded-xl border text-xs font-semibold flex items-center justify-between ${isPreferred ? 'border-primary bg-primary-soft text-primary' : 'border-gray-200 text-gray-650 hover:bg-gray-50'} ${!isEditing ? 'cursor-default opacity-85' : 'cursor-pointer hover:border-gray-300'}`}
+                  >
+                    <span>{sport}</span>
+                    {isPreferred && <span className="h-2 w-2 rounded-full bg-primary" />}
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="premium-card p-6">
+            <h4 className="font-bold text-gray-800 text-sm pb-3 border-b border-gray-200 mb-4">Work Info</h4>
+            <div className="space-y-3 text-xs">
+              <div className="flex items-center space-x-3 p-3 rounded-xl border border-gray-200 bg-gray-50/50">
+                <Briefcase className="h-4 w-4 text-primary flex-shrink-0" />
+                <div>
+                  <p className="font-semibold text-gray-800 capitalize">{user?.role}</p>
+                  <p className="text-gray-500 mt-0.5">{user?.department || 'SportSync Club'}</p>
+                </div>
+              </div>
+              {user?.role === 'coach' && user?.specialization?.length > 0 && (
+                <div className="p-3 rounded-xl border border-gray-200">
+                  <p className="font-semibold text-gray-450 uppercase mb-2">Specialization</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {user.specialization.map((s) => (
+                      <span key={s} className="bg-primary-soft text-primary px-2 py-1 rounded-lg font-bold border border-primary/10">{s}</span>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

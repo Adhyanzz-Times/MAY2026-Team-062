@@ -19,6 +19,9 @@ export const mockUsers = [
     email: "coach@sportsync.demo",
     role: "coach",
     phone: "+91 97777 66666",
+    department: "Coaching Staff",
+    specialization: ["Badminton", "Tennis"],
+    joinDate: "15 Mar 2024",
     avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=150"
   },
   {
@@ -27,6 +30,8 @@ export const mockUsers = [
     email: "maintenance@sportsync.demo",
     role: "maintenance",
     phone: "+91 96666 55555",
+    department: "Facilities & Maintenance",
+    joinDate: "02 Jan 2023",
     avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=150"
   },
   {
@@ -35,6 +40,8 @@ export const mockUsers = [
     email: "admin@sportsync.demo",
     role: "admin",
     phone: "+91 99999 88888",
+    department: "Club Administration",
+    joinDate: "01 Jun 2022",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"
   }
 ];
@@ -202,36 +209,109 @@ export const mockEvents = [
   }
 ];
 
-export const mockNotifications = [
-  {
-    id: "N001",
-    title: "Booking Confirmed",
-    message: "Your booking for Badminton Court 2 on 6th July, 06:00 PM is confirmed.",
-    time: "10 mins ago",
-    read: false
-  },
-  {
-    id: "N002",
-    title: "Maintenance Notice",
-    message: "Tennis Court 1 is closed for routine court leveling till 8th July.",
-    time: "2 hours ago",
-    read: false
-  },
-  {
-    id: "N003",
-    title: "Tournament Registration Open",
-    message: "Registrations for the Summer Badminton Tournament are closing soon. Only 8 spots left!",
-    time: "1 day ago",
-    read: true
-  },
-  {
-    id: "N004",
-    title: "Membership Renewal",
-    message: "Your premium membership is active. Renewal date is 31 Dec 2026.",
-    time: "3 days ago",
-    read: true
-  }
-];
+// Notifications are role-specific: each role only sees notifications relevant
+// to their own workflow (see NotificationService.getNotifications(role)).
+export const mockNotificationsByRole = {
+  member: [
+    {
+      id: "N001",
+      title: "Booking Confirmed",
+      message: "Your booking for Badminton Court 2 on 6th July, 06:00 PM is confirmed.",
+      time: "10 mins ago",
+      read: false
+    },
+    {
+      id: "N002",
+      title: "Maintenance Notice",
+      message: "Tennis Court 1 is closed for routine court leveling till 8th July.",
+      time: "2 hours ago",
+      read: false
+    },
+    {
+      id: "N003",
+      title: "Tournament Registration Open",
+      message: "Registrations for the Summer Badminton Tournament are closing soon. Only 8 spots left!",
+      time: "1 day ago",
+      read: true
+    },
+    {
+      id: "N004",
+      title: "Membership Renewal",
+      message: "Your premium membership is active. Renewal date is 31 Dec 2026.",
+      time: "3 days ago",
+      read: true
+    }
+  ],
+  coach: [
+    {
+      id: "N101",
+      title: "New Trainee Registered",
+      message: "A new trainee has joined your Intermediate Badminton Coaching session.",
+      time: "20 mins ago",
+      read: false
+    },
+    {
+      id: "N102",
+      title: "Schedule Updated",
+      message: "Your Pro Tennis Drills Clinic has been moved to Tennis Court 1.",
+      time: "3 hours ago",
+      read: false
+    },
+    {
+      id: "N103",
+      title: "Tournament Reminder",
+      message: "Summer Badminton Tournament is next week. Please confirm your coaching slot.",
+      time: "1 day ago",
+      read: true
+    }
+  ],
+  maintenance: [
+    {
+      id: "N201",
+      title: "New Task Assigned",
+      message: "\"Flickering lights in Court 2\" has been assigned to you. Priority: High.",
+      time: "15 mins ago",
+      read: false
+    },
+    {
+      id: "N202",
+      title: "Task Reminder",
+      message: "\"Net tear on Tennis Court 1\" is still In Progress. Please update its status.",
+      time: "5 hours ago",
+      read: false
+    },
+    {
+      id: "N203",
+      title: "Task Resolved",
+      message: "\"Water leakage near locker room\" has been marked Resolved.",
+      time: "2 days ago",
+      read: true
+    }
+  ],
+  admin: [
+    {
+      id: "N301",
+      title: "Monthly Revenue Report Ready",
+      message: "July revenue report has been generated. ₹1,25,000 collected so far.",
+      time: "1 hour ago",
+      read: false
+    },
+    {
+      id: "N302",
+      title: "High Complaint Volume",
+      message: "7 open complaints this week, above the usual average. Review recommended.",
+      time: "6 hours ago",
+      read: false
+    },
+    {
+      id: "N303",
+      title: "New Member Signups",
+      message: "5 new members joined this week.",
+      time: "1 day ago",
+      read: true
+    }
+  ]
+};
 
 export const mockPartnerRecommendations = [
   {
@@ -267,6 +347,11 @@ export const mockAdminInsights = {
     { day: "Sun", count: 28 }
   ]
 };
+
+export const mockCoachSessions = [
+  { id: 1, title: "Intermediate Badminton Coaching", time: "04:00 PM - 05:30 PM", trainees: 8, court: "Badminton Court 2" },
+  { id: 2, title: "Pro Tennis Drills Clinic", time: "06:00 PM - 07:30 PM", trainees: 6, court: "Tennis Court 1" }
+];
 
 export const timeSlots = [
   { time: "06:00 AM", available: true },

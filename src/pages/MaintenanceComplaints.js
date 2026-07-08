@@ -1,22 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PageHeader from '../components/PageHeader';
 import DataTable from '../components/DataTable';
+import { ComplaintService } from '../services/complaint';
+import { useAuth } from '../contexts/AuthContext';
 import { CheckCircle } from 'lucide-react';
 
 export default function MaintenanceComplaints() {
-  const [complaints, setComplaints] = useState([
-    { id: "C001", title: "Flickering lights in Court 2", category: "Electrical", priority: "High", status: "Open" },
-    { id: "C002", title: "Net tear on Tennis Court 1", category: "Equipment", priority: "Medium", status: "In Progress" },
-    { id: "C003", title: "Water leakage near locker room", category: "Plumbing", priority: "Low", status: "Resolved" }
-  ]);
+  const { user } = useAuth();
+  const [complaints, setComplaints] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleResolve = (id) => {
-    setComplaints(prev => prev.map(c => {
-      if (c.id === id) {
-        return { ...c, status: "Resolved" };
-      }
-      return c;
-    }));
+  useEffect(() => {
+    let isMounted = true;
+    ComplaintService.getComplaints('maintenance', user?.id)
+      .then((data) => {
+        if (isMounted) setComplaints(data);
+      })
+      .finally(() => {
+        if (isMounted) setLoading(false);
+      });
+    return () => { isMounted = false; };
+  }, [user?.id]);
+
+  const handleResolve = async (id) => {
+    try {
+      const updated = await ComplaintService.updateComplaintStatus(id, 'Resolved');
+      setComplaints(prev => prev.map(c => (c.id === id ? updated : c)));
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const getPriorityColor = (priority) => {
@@ -39,21 +51,21 @@ export default function MaintenanceComplaints() {
     { header: 'Task ID', accessor: 'id' },
     { header: 'Issue Description', accessor: 'title' },
     { header: 'Category', accessor: 'category' },
-    { 
-      header: 'Priority', 
+    {
+      header: 'Priority',
       render: (row) => (
         <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${getPriorityColor(row.priority)}`}>
           {row.priority}
         </span>
-      ) 
+      )
     },
-    { 
-      header: 'Status', 
+    {
+      header: 'Status',
       render: (row) => (
         <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${getStatusColor(row.status)}`}>
           {row.status}
         </span>
-      ) 
+      )
     },
     {
       header: 'Action',
@@ -75,16 +87,22 @@ export default function MaintenanceComplaints() {
 
   return (
     <div className="space-y-6">
-      <PageHeader 
-        title="Assigned Tasks Log" 
+      <PageHeader
+        title="Assigned Tasks Log"
         description="View and log actions for facility repair reports assigned to you."
       />
-      <DataTable
-        columns={columns}
-        data={complaints}
-        searchKey="title"
-        searchPlaceholder="Search tasks..."
-      />
+      {loading ? (
+        <div className="flex justify-center py-16">
+          <div className="h-5 w-5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        </div>
+      ) : (
+        <DataTable
+          columns={columns}
+          data={complaints}
+          searchKey="title"
+          searchPlaceholder="Search tasks..."
+        />
+      )}
     </div>
   );
 }

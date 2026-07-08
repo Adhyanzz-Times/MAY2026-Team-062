@@ -6,7 +6,9 @@ export const ComplaintService = {
   getComplaints: async (role, memberId) => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        if (role === 'admin') {
+        if (role === 'admin' || role === 'maintenance') {
+          // Admin and maintenance staff need visibility into every facility
+          // issue, not just complaints raised by a single member.
           resolve(activeComplaints);
         } else {
           resolve(activeComplaints.filter(c => c.memberId === memberId));

@@ -1,37 +1,46 @@
-import { mockNotifications } from '../mock/data';
+import { mockNotificationsByRole } from '../mock/data';
 
-let activeNotifications = [...mockNotifications];
+// Keep a separate mutable working copy per role so "mark all as read" for one
+// role never touches another role's notifications.
+let activeNotificationsByRole = {
+  member: [...mockNotificationsByRole.member],
+  coach: [...mockNotificationsByRole.coach],
+  maintenance: [...mockNotificationsByRole.maintenance],
+  admin: [...mockNotificationsByRole.admin]
+};
 
 export const NotificationService = {
-  getNotifications: async () => {
+  // role defaults to 'member' so any old call sites without a role keep working.
+  getNotifications: async (role = 'member') => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(activeNotifications);
+        resolve(activeNotificationsByRole[role] || []);
       }, 250);
     });
   },
 
-  markAllAsRead: async () => {
+  markAllAsRead: async (role = 'member') => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        activeNotifications = activeNotifications.map(n => ({
+        activeNotificationsByRole[role] = (activeNotificationsByRole[role] || []).map(n => ({
           ...n,
           read: true
         }));
-        resolve(activeNotifications);
+        resolve(activeNotificationsByRole[role]);
       }, 300);
     });
   },
 
-  addNotification: (title, message) => {
+  addNotification: (role = 'member', title, message) => {
+    const list = activeNotificationsByRole[role] || (activeNotificationsByRole[role] = []);
     const newNotif = {
-      id: `N00${activeNotifications.length + 1}`,
+      id: `N-${role}-${list.length + 1}`,
       title,
       message,
       time: "Just now",
       read: false
     };
-    activeNotifications.unshift(newNotif);
+    list.unshift(newNotif);
     return newNotif;
   }
 };

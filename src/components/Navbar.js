@@ -3,27 +3,30 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Menu, Bell } from 'lucide-react';
 import ProfileDropdown from './ProfileDropdown';
 import { NotificationService } from '../services/notification';
+import { useAuth } from '../contexts/AuthContext';
 
 export default function Navbar({ toggleSidebar }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
     async function fetchNotifications() {
       try {
-        const notifs = await NotificationService.getNotifications();
+        const notifs = await NotificationService.getNotifications(user?.role);
         setUnreadCount(notifs.filter(n => !n.read).length);
       } catch (err) {
         console.error(err);
       }
     }
-    fetchNotifications();
-
-    // Poll or re-check every few seconds to simulate real-time updates
-    const interval = setInterval(fetchNotifications, 5000);
-    return () => clearInterval(interval);
-  }, [location.pathname]);
+    if (user) {
+      fetchNotifications();
+      // Poll or re-check every few seconds to simulate real-time updates
+      const interval = setInterval(fetchNotifications, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [location.pathname, user]);
 
   const getPageTitle = () => {
     const path = location.pathname;
