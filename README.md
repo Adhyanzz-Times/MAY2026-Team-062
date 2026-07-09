@@ -1,70 +1,155 @@
-# Getting Started with Create React App
+# SportSync – Sports Club Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+SportSync is a frontend prototype of a **Sports Club Management System** developed as part of the **IIT Madras Software Engineering** course (Milestone 2).
 
-## Available Scripts
+The application aims to digitize common sports club operations such as court booking, membership management, complaint reporting, practice scheduling, and administrative monitoring through a modern web interface.
 
-In the project directory, you can run:
+This version is a **frontend-only implementation**. All interactions use mocked services and data to simulate backend APIs, allowing the frontend to be developed independently and integrated with backend services in later milestones.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Member
 
-### `npm test`
+- Dashboard
+- Court and Turf Booking
+- Smart Slot Recommendations
+- Natural Language Booking
+- View and Manage Bookings
+- Membership Management
+- Event Registration
+- Raise Facility Complaints
+- AI-assisted Complaint Categorization
+- AI Duplicate Complaint Detection
+- AI Assistant
+- Notifications
+- Profile Management
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Coach
 
-### `npm run build`
+- Dashboard
+- View Coaching Schedule
+- Manage Attendance
+- AI Scheduling Insights
+- Notifications
+- Profile
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Maintenance Staff
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Dashboard
+- View Assigned Maintenance Tasks
+- Update Complaint Status
+- AI Complaint Summaries
+- Notifications
+- Profile
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Administrator
 
-### `npm run eject`
+- Dashboard
+- Manage Members
+- Manage Bookings
+- Manage Complaints
+- Reports and Analytics
+- AI-generated Operational Insights
+- Membership Renewal Insights
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## AI Features
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+The frontend demonstrates the following AI-assisted workflows using mocked responses:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Smart Slot Recommendation
+- Natural Language Booking
+- AI Club Assistant
+- AI Practice Partner Recommendation
+- AI Event Recommendation
+- AI Complaint Classification
+- AI Image-based Complaint Analysis
+- AI Duplicate Complaint Detection
+- AI Membership Renewal Prediction
+- AI Operational Insights
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Technology Stack
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React
+- JavaScript (ES6)
+- Tailwind CSS
+- React Router DOM
+- Lucide React
+- Context API
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Project Structure
 
-### Analyzing the Bundle Size
+```
+src/
+├── components/
+├── contexts/
+├── layouts/
+├── mock/
+├── pages/
+├── services/
+└── assets/
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Folder Description
 
-### Making a Progressive Web App
+- **components/** – Reusable UI components
+- **contexts/** – Authentication and shared application state
+- **layouts/** – Shared page layouts
+- **mock/** – Mock data used during frontend development
+- **pages/** – Application screens
+- **services/** – Mock service layer that simulates backend APIs
+- **assets/** – Static resources
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## Running the Project
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Install Dependencies
 
-### Deployment
+```bash
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Start the Development Server
 
-### `npm run build` fails to minify
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The application will be available at:
+
+```
+http://localhost:3000
+```
+
+### Production Build
+
+```bash
+npm run build
+```
+
+---
+
+## Demo Accounts
+
+| Role | Email | Password |
+|------|-------|----------|
+| Member | member@sportsync.demo | password |
+| Coach | coach@sportsync.demo | password |
+| Maintenance | maintenance@sportsync.demo | password |
+| Admin | admin@sportsync.demo | password |
+
+---
+
+## Notes
+
+- This project represents the frontend implementation for **Milestone 2**.
+- Authentication, AI features, and backend interactions are currently simulated using mocked services.
+- The application architecture has been designed to allow seamless integration with backend APIs in future milestones by replacing the mock service layer.
