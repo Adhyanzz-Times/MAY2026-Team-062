@@ -22,16 +22,17 @@ export default function PublicLayout() {
   return (
     <div className="flex flex-col min-h-screen bg-gray-50/50">
       {/* Public Header */}
-      <header className="sticky top-0 z-30 bg-white border-b border-gray-150 shadow-sm px-6 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-30 border-b border-gray-100 bg-white/95 px-6 shadow-sm backdrop-blur">
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between">
         <div className="flex items-center space-x-2 cursor-pointer" onClick={() => navigate('/')}>
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white font-bold text-lg">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-white font-bold text-lg shadow-sm shadow-primary/30">
             S
           </div>
           <span className="text-xl font-bold tracking-tight text-gray-900">SportSync</span>
         </div>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-500">
+        <nav className="hidden md:flex items-center space-x-7 text-sm font-medium text-gray-500">
           <Link to="/" className="hover:text-primary transition-colors">Home</Link>
           <Link to="/#about" className="hover:text-primary transition-colors">About</Link>
           <Link to="/#facilities" className="hover:text-primary transition-colors">Facilities</Link>
@@ -40,7 +41,7 @@ export default function PublicLayout() {
         </nav>
 
         {/* CTAs */}
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2">
           {user ? (
             <Link 
               to={user.role === 'admin' ? '/admin' : '/dashboard'} 
@@ -61,7 +62,7 @@ export default function PublicLayout() {
               {location.pathname !== '/register' && (
                 <Link 
                   to="/register" 
-                  className="bg-primary text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-primary-dark transition-all shadow-sm"
+                  className="bg-primary text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-primary-dark transition-all shadow-sm shadow-primary/20"
                 >
                   Register
                 </Link>
@@ -69,10 +70,11 @@ export default function PublicLayout() {
             </>
           )}
         </div>
+        </div>
       </header>
 
       {/* Page Content */}
-      <main className="flex-grow flex items-center justify-center py-10 px-4 md:px-0">
+      <main className={`flex-grow ${location.pathname === '/' ? '' : 'flex items-center justify-center py-10 px-4 md:px-0'}`}>
         <Outlet />
       </main>
 
