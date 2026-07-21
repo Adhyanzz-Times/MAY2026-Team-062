@@ -14,7 +14,8 @@ import {
   LogOut, 
   X,
   FileText,
-  Users
+  Users,
+  Dumbbell
 } from 'lucide-react';
 
 export default function Sidebar({ isOpen, toggleSidebar }) {
@@ -41,7 +42,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
       case 'coach':
         return [
           { name: 'Dashboard', path: '/dashboard', icon: LayoutDashboard },
-          { name: 'My Schedule', path: '/coach/schedule', icon: CalendarDays },
+          { name: 'Practice Sessions', path: '/coach/schedule', icon: CalendarDays },
           { name: 'Attendance', path: '/coach/attendance', icon: Users },
           { name: 'Notifications', path: '/notifications', icon: Bell },
           { name: 'Profile', path: '/profile', icon: User },
@@ -60,6 +61,7 @@ export default function Sidebar({ isOpen, toggleSidebar }) {
           { name: 'My Bookings', path: '/my-bookings', icon: BookOpen },
           { name: 'Membership', path: '/membership', icon: CreditCard },
           { name: 'Events', path: '/events', icon: CalendarDays },
+          { name: 'Practice Sessions', path: '/practice-sessions', icon: Dumbbell },
           { name: 'Complaints', path: '/complaints', icon: AlertCircle },
           { name: 'Notifications', path: '/notifications', icon: Bell },
           { name: 'Profile', path: '/profile', icon: User },
