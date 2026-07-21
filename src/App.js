@@ -18,6 +18,7 @@ import BookCourt from './pages/BookCourt';
 import MyBookings from './pages/MyBookings';
 import Membership from './pages/Membership';
 import Events from './pages/Events';
+import PracticeSessions from './pages/PracticeSessions';
 import Complaints from './pages/Complaints';
 import Notifications from './pages/Notifications';
 import Profile from './pages/Profile';
@@ -63,6 +64,7 @@ export default function App() {
             <Route path="/my-bookings" element={<ProtectedRoute allowedRoles={['member']}><MyBookings /></ProtectedRoute>} />
             <Route path="/membership" element={<ProtectedRoute allowedRoles={['member']}><Membership /></ProtectedRoute>} />
             <Route path="/events" element={<ProtectedRoute allowedRoles={['member']}><Events /></ProtectedRoute>} />
+            <Route path="/practice-sessions" element={<ProtectedRoute allowedRoles={['member']}><PracticeSessions /></ProtectedRoute>} />
             <Route path="/complaints" element={<ProtectedRoute allowedRoles={['member']}><Complaints /></ProtectedRoute>} />
             <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
