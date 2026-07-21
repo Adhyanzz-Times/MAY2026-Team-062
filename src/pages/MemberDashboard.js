@@ -152,7 +152,7 @@ export default function MemberDashboard() {
 
             <h4 className="text-lg font-bold mb-2">Smart Booking Slot Recommendation</h4>
             <p className="text-xs text-purple-150 max-w-xl leading-relaxed mb-5">
-              Based on your play pattern, your preferred court **Badminton Court 2** is available tomorrow at **06:00 PM**. Weather matches your play history perfectly.
+              Based on your play pattern, your preferred court Badminton Court 2 is available tomorrow at 06:00 PM. Weather matches your play history perfectly.
             </p>
             <button
               onClick={() => navigate('/book-court', { state: { recommend: true } })}

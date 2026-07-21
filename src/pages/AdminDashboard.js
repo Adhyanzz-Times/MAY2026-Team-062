@@ -95,7 +95,7 @@ export default function AdminDashboard() {
             <ul className="text-xs text-purple-200/95 space-y-3 leading-relaxed">
               <li className="flex items-start space-x-2">
                 <span className="text-purple-300 font-bold">•</span>
-                <span>Peak booking hours identified: **06:00 PM - 08:00 PM**. Suggest creating dynamic peak-pricing slots to increase slot availability.</span>
+                <span>Peak booking hours identified: 06:00 PM - 08:00 PM. Suggest creating dynamic peak-pricing slots to increase slot availability.</span>
               </li>
               <li className="flex items-start space-x-2">
                 <span className="text-purple-300 font-bold">•</span>

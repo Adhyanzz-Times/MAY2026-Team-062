@@ -150,7 +150,7 @@ export default function Complaints() {
                 <div>
                   <span className="font-bold text-amber-900">Similar Active Complaint Detected!</span>
                   <p className="mt-1 leading-relaxed text-amber-800">
-                    A complaint titled **"{duplicateWarning.title}"** (Status: **{duplicateWarning.status}**) has already been logged. You can still submit, but our team is already working on this.
+                    A complaint titled "{duplicateWarning.title}" (Status: {duplicateWarning.status}) has already been logged. You can still submit, but our team is already working on this.
                   </p>
                 </div>
               </div>
@@ -242,8 +242,8 @@ export default function Complaints() {
                   <div>
                     <span className="font-bold text-purple-900 text-sm">AI Image Classification Result!</span>
                     <p className="mt-1 leading-relaxed text-purple-800">
-                      Issue detected: **{aiAnalysis.issueDetected}** (Confidence: **{aiAnalysis.confidence}**). <br />
-                      Suggested category changed to **{aiAnalysis.suggestedCategory}** with **{aiAnalysis.suggestedPriority}** priority.
+                      Issue detected: {aiAnalysis.issueDetected} (Confidence: {aiAnalysis.confidence}). <br />
+                      Suggested category changed to {aiAnalysis.suggestedCategory} with {aiAnalysis.suggestedPriority} priority.
                     </p>
                   </div>
                 </div>

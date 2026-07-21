@@ -194,7 +194,7 @@ export default function BookCourt() {
           <div>
             <span className="font-bold text-purple-900 text-sm">AI Suggested Slot Selected!</span>
             <p className="mt-1 leading-relaxed text-purple-800 font-medium">
-              We selected **{aiRecommendation.courtName}** on **{new Date(aiRecommendation.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })}** at **{aiRecommendation.startTime}**. <br />
+              We selected {aiRecommendation.courtName} on {new Date(aiRecommendation.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' })} at {aiRecommendation.startTime}. <br />
               <span className="text-[11px] text-gray-500 font-normal italic">{aiRecommendation.reason}</span>
             </p>
           </div>
@@ -370,7 +370,7 @@ export default function BookCourt() {
               <CheckCircle2 className="h-5 w-5 text-primary mr-2" /> Confirm Court Booking
             </h4>
             <p className="text-xs text-gray-500 leading-relaxed mb-5">
-              You are about to book **{selectedCourt?.name}** on **{selectedDate}** at **{selectedSlot}**.
+              You are about to book {selectedCourt?.name} on {selectedDate} at {selectedSlot}.
             </p>
             <div className="flex justify-end space-x-3 text-xs">
               <button

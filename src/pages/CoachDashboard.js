@@ -20,7 +20,7 @@ export default function CoachDashboard() {
     return () => { isMounted = false; };
   }, []);
 
-  const totalTrainees = sessions.reduce((sum, s) => sum + s.trainees, 0);
+  const totalTrainees = sessions.reduce((sum, s) => sum + (s.trainees || 0), 0);
 
   return (
     <div className="space-y-6">
@@ -52,7 +52,7 @@ export default function CoachDashboard() {
                     <p className="text-xs text-gray-500 mt-1">{session.court} • {session.time}</p>
                   </div>
                   <span className="bg-primary-soft text-primary text-[10px] px-2.5 py-1 rounded-lg font-bold border border-primary/10">
-                    {session.trainees} Trainees
+                    {session.trainees || 0} Trainees
                   </span>
                 </div>
               ))}
