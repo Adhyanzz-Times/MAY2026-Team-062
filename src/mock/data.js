@@ -349,8 +349,62 @@ export const mockAdminInsights = {
 };
 
 export const mockCoachSessions = [
-  { id: 1, title: "Intermediate Badminton Coaching", time: "04:00 PM - 05:30 PM", trainees: 8, court: "Badminton Court 2" },
-  { id: 2, title: "Pro Tennis Drills Clinic", time: "06:00 PM - 07:30 PM", trainees: 6, court: "Tennis Court 1" }
+  { 
+    id: "S001", 
+    title: "Intermediate Badminton Coaching", 
+    sport: "Badminton",
+    date: "2026-07-06",
+    startTime: "04:00 PM",
+    endTime: "05:30 PM",
+    time: "04:00 PM - 05:30 PM", 
+    court: "Badminton Court 2",
+    description: "Technical drills, footwork exercises, and supervised doubles match strategy for intermediate players.",
+    status: "Active"
+  },
+  { 
+    id: "S002", 
+    title: "Pro Tennis Drills Clinic", 
+    sport: "Tennis",
+    date: "2026-07-06",
+    startTime: "06:00 PM",
+    endTime: "07:30 PM",
+    time: "06:00 PM - 07:30 PM", 
+    court: "Tennis Court 1",
+    description: "High-intensity baseline rallies, topspin serve mechanics, and tactical net play session.",
+    status: "Active"
+  },
+  { 
+    id: "S003", 
+    title: "Advanced Football Tactics", 
+    sport: "Football Turf",
+    date: "2026-07-07",
+    startTime: "05:00 PM",
+    endTime: "07:00 PM",
+    time: "05:00 PM - 07:00 PM", 
+    court: "Football Turf 1",
+    description: "Positional positioning, small-sided transition games, and set-piece tactical executions.",
+    status: "Active"
+  },
+  { 
+    id: "S004", 
+    title: "Beginner Table Tennis Session", 
+    sport: "Table Tennis",
+    date: "2026-07-08",
+    startTime: "03:00 PM",
+    endTime: "04:00 PM",
+    time: "03:00 PM - 04:00 PM", 
+    court: "Table Tennis Table 1",
+    description: "Grip fundamentals, ball control, and basic forehand drive consistency drills.",
+    status: "Active"
+  }
+];
+
+export const mockCoachRegistrations = [
+  { id: "R001", sessionId: "S001", memberId: "M001", memberName: "Arjun Mehta", status: "Not Marked" },
+  { id: "R002", sessionId: "S001", memberId: "M002", memberName: "Rohan Kulkarni", status: "Present" },
+  { id: "R003", sessionId: "S001", memberId: "M003", memberName: "Kabir Sharma", status: "Absent" },
+  { id: "R004", sessionId: "S002", memberId: "M001", memberName: "Arjun Mehta", status: "Not Marked" },
+  { id: "R005", sessionId: "S002", memberId: "M004", memberName: "Isha Sen", status: "Present" }
 ];
 
 export const timeSlots = [
